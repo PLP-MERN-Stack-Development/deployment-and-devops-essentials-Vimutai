@@ -3,19 +3,20 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+
+// Load environment variables FIRST
+dotenv.config();
+
+// Now import modules that depend on environment variables
 import connectDB from './config/db.js';
 import transactionRoutes from './routes/transactions.js';
 import logger from './utils/logger.js';
 import healthRouter from './routes/health.js';
 
-// Load environment variables
-dotenv.config();
-
 // Connect to MongoDB
 connectDB();
 
 const app = express();
-app.use('/api/health', healthRouter);
 
 // Middleware
 app.use(helmet());
@@ -28,16 +29,21 @@ app.use(morgan('combined', {
   stream: { write: message => logger.info(message.trim()) }
 }));
 
-// Routes
+// Routes - Use the health router
+app.use('/api/health', healthRouter);
+
+// Your existing health route (remove this duplicate)
 app.get('/health', (req, res) => {
   res.json({ 
     status: 'OK', 
-    message: 'Budget Planner API is running! ðŸ‡°ðŸ‡ª',
+    message: 'Budget Planner API is running! 🚀',
     timestamp: new Date().toISOString() 
   });
 });
 
 app.use('/api/transactions', transactionRoutes);
+
+// Remove the duplicate health route at the bottom - it's already handled by healthRouter
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -60,28 +66,7 @@ app.use((req, res) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  logger.info(`ðŸš€ Server running on port ${PORT}`);
-  logger.info(`ðŸ‡°ðŸ‡ª Enyan Budget Planner API - Karibu!`);
-  logger.info(`ðŸŒ Environment: ${process.env.NODE_ENV || 'development'}`);
-});/**
- * Quick health route â€” returns basic app + DB status
- * If you already have a /api/health route, skip this step.
- */
-app.get('/api/health', async (req, res) => {
-  try {
-    // DB connection state (mongoose readyState: 1 = connected)
-    const mongoose = await import('mongoose');
-    const dbState = mongoose.default.connection.readyState;
-    return res.json({
-      success: true,
-      status: 'ok',
-      env: process.env.NODE_ENV || 'development',
-      dbConnected: dbState === 1,
-      uptimeSec: Math.floor(process.uptime())
-    });
-  } catch (err) {
-    return res.status(500).json({ success: false, message: 'health check failed', error: err.message });
-  }
+  logger.info(`🚀 Server running on port ${PORT}`);
+  logger.info(`🇰🇪 Enyan Budget Planner API - Karibu!`);
+  logger.info(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
-
-
