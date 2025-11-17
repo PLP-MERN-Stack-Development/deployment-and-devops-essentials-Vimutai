@@ -1,77 +1,121 @@
-# Deployment and DevOps for MERN Applications
+# 💰 Budget Planner – Enyan Market Edition 🇰🇪
 
-This assignment focuses on deploying a full MERN stack application to production, implementing CI/CD pipelines, and setting up monitoring for your application.
+A full-stack MERN budget planning application with authentic Kenyan flavor! Track your shillings, manage matumizi, and plan your finances like a pro.
 
-## Assignment Overview
+## 🌟 Features
 
-You will:
-1. Prepare your MERN application for production deployment
-2. Deploy the backend to a cloud platform
-3. Deploy the frontend to a static hosting service
-4. Set up CI/CD pipelines with GitHub Actions
-5. Implement monitoring and maintenance strategies
+- ✅ Add income and expense transactions
+- 📊 Visual dashboard with KPI cards
+- 🥧 Category breakdown with pie charts
+- 💵 KES currency formatting
+- 🇰🇪 Kenyan categories (Gikomba, Matatu, Boda-boda, Mama Mboga, etc.)
+- 📱 Mobile-responsive design
+- 🔄 Real-time balance calculation
+- 🗑️ Delete transactions
+- 🎨 Clean, modern UI with Tailwind CSS
 
-## Getting Started
+## 🛠️ Tech Stack
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Follow the setup instructions in the `Week7-Assignment.md` file
-4. Use the provided templates and configuration files as a starting point
+**Backend:**
 
-## Files Included
+- Node.js & Express
+- MongoDB Atlas with Mongoose
+- Helmet (security)
+- Morgan & Winston (logging)
+- CORS enabled
 
-- `Week7-Assignment.md`: Detailed assignment instructions
-- `.github/workflows/`: GitHub Actions workflow templates
-- `deployment/`: Deployment configuration files and scripts
-- `.env.example`: Example environment variable templates
-- `monitoring/`: Monitoring configuration examples
+**Frontend:**
 
-## Requirements
+- React 18 with Vite
+- Tailwind CSS
+- Recharts for visualizations
+- Axios for API calls
+- Lucide React icons
 
-- A completed MERN stack application from previous weeks
-- Accounts on the following services:
-  - GitHub
-  - MongoDB Atlas
-  - Render, Railway, or Heroku (for backend)
-  - Vercel, Netlify, or GitHub Pages (for frontend)
-- Basic understanding of CI/CD concepts
+## 📦 Installation
 
-## Deployment Platforms
+### Prerequisites
 
-### Backend Deployment Options
-- **Render**: Easy to use, free tier available
-- **Railway**: Developer-friendly, generous free tier
-- **Heroku**: Well-established, extensive documentation
+- Node.js 18+ installed
+- MongoDB Atlas account (free tier works!)
+- Git installed
 
-### Frontend Deployment Options
-- **Vercel**: Optimized for React apps, easy integration
-- **Netlify**: Great for static sites, good CI/CD
-- **GitHub Pages**: Free, integrated with GitHub
+### Backend Setup
 
-## CI/CD Pipeline
+```bash
+cd server
+npm install
+cp .env.example .env
+# Edit .env with your MongoDB URI
+npm run dev
+```
 
-The assignment includes templates for setting up GitHub Actions workflows:
-- `frontend-ci.yml`: Tests and builds the React application
-- `backend-ci.yml`: Tests the Express.js backend
-- `frontend-cd.yml`: Deploys the frontend to your chosen platform
-- `backend-cd.yml`: Deploys the backend to your chosen platform
+### Frontend Setup
 
-## Submission
+```bash
+cd client
+npm install
+cp .env.example .env
+# Edit .env with your backend URL
+npm run dev
+```
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+## 🌍 Environment Variables
 
-1. Complete all deployment tasks
-2. Set up CI/CD pipelines with GitHub Actions
-3. Deploy both frontend and backend to production
-4. Document your deployment process in the README.md
-5. Include screenshots of your CI/CD pipeline in action
-6. Add URLs to your deployed applications
+### Backend (.env)
 
-## Resources
+```env
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/budget_planner
+PORT=5000
+NODE_ENV=development
+CLIENT_URL=http://localhost:5173
+```
 
-- [GitHub Actions Documentation](https://docs.github.com/en/actions)
-- [MongoDB Atlas Documentation](https://docs.atlas.mongodb.com/)
-- [Render Documentation](https://render.com/docs)
-- [Railway Documentation](https://docs.railway.app/)
-- [Vercel Documentation](https://vercel.com/docs)
-- [Netlify Documentation](https://docs.netlify.com/) 
+### Frontend (.env)
+
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+## 🚀 Deployment
+
+### Deploy Backend to Render
+
+1. Create account on [Render.com](https://render.com)
+2. Click "New +" → "Web Service"
+3. Connect your GitHub repo
+4. Configure:
+   - **Name:** budget-planner-api
+   - **Root Directory:** server
+   - **Build Command:** `npm install`
+   - **Start Command:** `npm start`
+5. Add Environment Variables:
+   - `MONGODB_URI`
+   - `NODE_ENV=production`
+   - `CLIENT_URL=https://your-frontend.vercel.app`
+6. Click "Create Web Service"
+
+### Deploy Frontend to Vercel
+
+1. Install Vercel CLI: `npm i -g vercel`
+2. Navigate to client folder: `cd client`
+3. Run: `vercel`
+4. Follow prompts
+5. Set environment variable:
+
+```bash
+   vercel env add VITE_API_URL production
+   # Enter: https://your-backend.render.com/api
+```
+
+6. Redeploy: `vercel --prod`
+
+**Alternative: Vercel Dashboard**
+
+1. Go to [vercel.com](https://vercel.com)
+2. Import your Git repository
+3. Set Root Directory to `client`
+4. Add environment variable `VITE_API_URL`
+5. Deploy!
+
+## 📡 API Endpoints
